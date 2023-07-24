@@ -19,7 +19,7 @@ class TechnicianListEncoder(ModelEncoder):
     properties = [
         "first_name",
         "last_name",
-        "employee_id"
+        "employee_id",
     ]
 
 class AppointmentEncoder(ModelEncoder):
@@ -56,3 +56,53 @@ def api_list_technicians(request):
             encoder=TechnicianListEncoder,
             safe = False,
         )
+@require_http_methods(["GET","DELETE"])
+def api_show_technician(request, id):
+    if request.method == "GET":
+        technician = Technician.objects.get(id=id)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianListEncoder,
+            safe=False,
+        )
+    else:
+        count, _ = Technician.objects.filter(id = id).delete()
+        return JsonResponse({"deleted": count > 0})
+
+@require_http_methods(["GET", "POST"])
+def api_list_appointments(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder =AppointmentEncoder,
+            safe= False,
+        )
+    elif request.method == "POST":
+        content = json.loads(request.body)
+        try:
+            technician = Technician.objects.get(id=content["technician"])
+            content["technician"] = technician
+        except Technician.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid Technician id"},
+                status=400,
+            )
+        appointment = Appointment.create(**content)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe = False,
+        )
+@require_http_methods(["GET","DELETE"])
+def api_show_appointment(request, id):
+    if request.method == "GET":
+        appointment = Appointment.objects.get(id=id)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    else:
+        count, _ = Appointment.objects.filter(id = id).delete()
+        return JsonResponse({"deleted": count > 0})

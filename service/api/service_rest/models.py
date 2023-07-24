@@ -3,14 +3,22 @@ from django.urls import reverse
 
 # Create your models here.
 class AutomobileVO(models.Model):
-    import_hred = models.URLField(max_length = 200, blank = True)
+    import_href = models.URLField(max_length = 200, blank = True)
     vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
 
 class Technician(models.Model):
     first_name = models.CharField(max_length = 100)
-    last_name =  models.CharField(max_length = 100)
+    last_name =  models.CharField(max_length = 120)
     employee_id = models.CharField(max_length = 100, unique=True)
+    def get_api_url(self):
+        return reverse("show_technician", kwargs={"id": self.id})
+    def __str__(self):
+        return self.first_name
+    class Meta:
+        ordering = ("first_name",)
+
+
 
 
 class Status(models.Model):
@@ -58,7 +66,7 @@ class Appointment(models.Model):
         self.save()
 
     def get_api_url(self):
-        return reverse("api_show_appointment", kwargs={"pk": self.pk})
+        return reverse("show_appointment", kwargs={"id": self.id})
 
     def __str__(self):
         return self.vin
