@@ -10,7 +10,7 @@ class AutomobileVOEncoder(ModelEncoder):
         "color",
         "year",
         "vin",
-        "Sold",
+        "sold",
         ]
 
 
@@ -43,7 +43,6 @@ class SaleEncoder(ModelEncoder):
         "salesperson",
         "customer",
         "price",
-        "Sold",
     ]
 
     encoders = {

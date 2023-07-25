@@ -164,12 +164,12 @@ def api_list_automobileVO(request):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_sales(request, employee_id=None):
+def api_list_sales(request, pk=None):
     if request.method == "GET":
-        if employee_id == None:
+        if pk == None:
             sales = Sale.objects.all()
         else:
-            sales = Sale.objects.filter(employee_id=employee_id)
+            sales = Sale.objects.filter(id=pk)
         return JsonResponse(
             {"sales": sales},
             encoder=SaleEncoder,
@@ -179,46 +179,58 @@ def api_list_sales(request, employee_id=None):
     else:
 
         content = json.loads(request.body)
-        automobile_vin = content["automobile"]
-        employee_id = content["salesperson"]
-        customer_id = content["customer"]
-        Sold = content["sold"]
-
         try:
-            automobile = AutomobileVO.objects.get(vin=automobile_vin)
-            if automobile.sold == False:
-                content["automobile"] = automobile
-
-            else:
-                response = JsonResponse({"Message": "vehicle not available"})
-                response.status_code = 404
-                return response
-
-        except AutomobileVO.DoesNotExist:
-            response = JsonResponse({"Message": "Vehicle doesn't exist"})
-
-        try:
-            salesperson = Salesperson.objects.get(employee_id=employee_id)
+            salesperson = Salesperson.objects.get(id=content["salesperson"])
+            print(content)
             content["salesperson"] = salesperson
 
         except Salesperson.DoesNotExist:
-            response = JsonResponse({"Message": "Salesperson not found"})
+            response = JsonResponse({"Message": "Salesperson not found add to database"})
             response.status_code = 404
             return response
 
         try:
-            customer = Customer.objects.get(id=customer_id)
+            customer = Customer.objects.get(id=content["customer"])
+            print(content)
             content["customer"] = customer
-
         except Customer.DoesNotExist:
-            response = JsonResponse({"Message": "Customer not found"})
+            response = JsonResponse({"Message": "Customer not found add to database"})
             response.status_code = 404
             return response
 
-        record_sale = Sale.objects.create(**content)
-        AutomobileVO.objects.filter(vin=automobile_vin).update(sold=True)
+        try:
+            automobile = AutomobileVO.objects.get(vin=content["automobile"])
+            print(content)
+            content["automobile"] = automobile
+        except AutomobileVO.DoesNotExist:
+            response = JsonResponse({"Message": "Vehicle not found add to database"})
+            response.status_code = 404
+            return response
+
+        # prices = price.objects.get(price=content["price"])
+        # print(content)
+        # content["price"] = prices
+
+        sale = Sale.objects.create(**content)
+        print("content", content)
         return JsonResponse(
-            record_sale,
+            sale,
             encoder=SaleEncoder,
-            safe=False
+            safe=False,
         )
+
+
+@require_http_methods(["GET"])
+def api_show_sale(request, pk):
+    if request.method == "GET":
+        try:
+            sale = Sale.objects.get(id=pk)
+            return JsonResponse(
+                sale,
+                encoder=SaleEncoder,
+                safe=False,
+            )
+        except Sale.DoesNotExist:
+            response = JsonResponse({"message": "Sale doesn't exist"})
+            response.status_code = 404
+            return response
