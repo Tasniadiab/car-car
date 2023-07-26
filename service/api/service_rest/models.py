@@ -11,10 +11,17 @@ class Technician(models.Model):
     first_name = models.CharField(max_length = 100)
     last_name =  models.CharField(max_length = 120)
     employee_id = models.CharField(max_length = 100, unique=True)
+
     def get_api_url(self):
         return reverse("show_technician", kwargs={"id": self.id})
+
     def __str__(self):
         return self.first_name
+
+    @property
+    def name(self):
+        return  f"{self.first_name} {self.last_name}"
+
     class Meta:
         ordering = ("first_name",)
 
@@ -32,7 +39,9 @@ class Status(models.Model):
         ordering = ("id",)
         verbose_name_plural = "statuses"
 
+
 class Appointment(models.Model):
+
     @classmethod
     def create(cls, **kwargs):
         kwargs["status"] = Status.objects.get(name="Created")
@@ -70,6 +79,14 @@ class Appointment(models.Model):
 
     def __str__(self):
         return self.vin
+
+    @property
+    def date(self):
+        return  self.date_time.strftime('%m/%d/%Y')
+
+    @property
+    def time(self):
+        return  self.date_time.strftime('%H:%M')
 
     class Meta:
         ordering = ("date_time",)
