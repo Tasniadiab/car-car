@@ -20,6 +20,7 @@ function SalespersonList () {
         <>
         <div className = "row">
             <h1>Salespeople</h1>
+            <span className="square border-top"></span>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -27,7 +28,6 @@ function SalespersonList () {
                         <th> First Name </th>
                         <th> Last Name </th>
                     </tr>
-                    <span className="square border-top"></span>
                 </thead>
                 <tbody>
                     {salespersons.map(salespeople => {

@@ -3,6 +3,12 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import SalespersonForm from './SalespersonForm';
 import SalespersonList from './SalespersonList';
+import CustomerForm from './CustomerForm';
+import CustomerList from './CustomerList';
+import SalesRecordForm from './SalesRecordForm';
+import SalesRecordList from './SalesRecordList';
+import SalesPersonHistory from './SalesPersonHistory';
+
 function App(props) {
   return (
     <BrowserRouter>
@@ -11,7 +17,12 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/salespeople" element={<SalespersonList salespersons={props.salespersons} />} />
-          <Route path="/salespeople/new" element={<SalespersonForm />} />
+          <Route path="/salespeople/create" element={<SalespersonForm />} />
+          <Route path="/customer/create" element={<CustomerForm />} />
+          <Route path="/customer" element={<CustomerList customers={props.customers} />} />
+          <Route path="/salesrecords" element={<SalesRecordForm/>}></Route>
+          <Route path="/sales" element={<SalesRecordList salespersons={props.sales_record} />} />
+          <Route path="/saleshistory" element={<SalesPersonHistory />} />
         </Routes>
       </div>
     </BrowserRouter>

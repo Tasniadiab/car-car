@@ -9,4 +9,5 @@ urlpatterns = [
     path("customers/<int:pk>/", api_show_customer, name="api_show_customer"),
     path("sales/<int:pk>", api_show_sale, name="api_show_sale"),
     path("sales/", api_list_sales, name="api_list_sales"),
+    path("salesrecords/create", api_list_sales, name="api_create_sales"),
 ]
