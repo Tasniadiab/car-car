@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function SaleForm ({fetchSales}) {
+const SaleForm = () => {
     const [automobiles, setAutomobiles] = useState([]);
     const [salespeople, setSalespeople] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -40,7 +40,6 @@ function SaleForm ({fetchSales}) {
         };
         const response = await fetch(saleUrl, fetchConfig);
         if (response.ok) {
-            // fetchSales();
             setAutomobile('');
             fetchData();
             setSalesperson('');
@@ -50,18 +49,20 @@ function SaleForm ({fetchSales}) {
     };
 
     const fetchData = async () => {
-        const automobileUrl = 'http://localhost:8090/api/automobiles/';
+        const automobileUrl = 'http://localhost:8100/api/automobiles/';
         const automobileResponse = await fetch(automobileUrl);
         if (automobileResponse.ok) {
             const data = await automobileResponse.json();
-            setAutomobiles(data.automobiles);
+            setAutomobiles(data.autos);
         };
+
         const salespersonUrl = "http://localhost:8090/api/salespeople/";
         const salespersonResponse = await fetch(salespersonUrl);
         if (salespersonResponse.ok) {
             const data = await salespersonResponse.json();
             setSalespeople(data.salespeople);
         };
+
         const customerUrl = 'http://localhost:8090/api/customers';
         const customerResponse = await fetch(customerUrl);
         if (customerResponse.ok) {
