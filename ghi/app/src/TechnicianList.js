@@ -18,7 +18,8 @@ function TechnicianList () {
         <>
         <div className = "row">
             <h1>Technicians</h1>
-            <table>
+            <span className="square border-top"></span>
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th>Employee No.</th>

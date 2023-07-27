@@ -17,7 +17,13 @@ function ServiceHistory() {
 
 
     };
-
+    function isVip(props){
+        if (props === true){
+            return "Yes"
+        }else{
+            return "No"
+        }
+    }
 
 
     useEffect(() => {
@@ -25,8 +31,10 @@ function ServiceHistory() {
     }, []);
     return (
         <>
+        <div className = "row">
         <h1> Service History</h1>
-        <table>
+        <span className="square border-top"></span>
+        <table className="table table-striped">
             <thead>
                 <tr>
                     <th>VIN</th>
@@ -44,7 +52,7 @@ function ServiceHistory() {
                     return(
                         <tr key = {appointment.href}>
                             <td>{appointment.vin}</td>
-                            <td>placehold</td>
+                            <td>{isVip(appointment.vip)}</td>
                             <td>{appointment.customer}</td>
                             <td>{appointment.date}</td>
                             <td>{appointment.time }</td>
@@ -57,6 +65,7 @@ function ServiceHistory() {
                     )}
             </tbody>
         </table>
+        </div>
         </>
     )
 }
