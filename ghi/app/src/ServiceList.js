@@ -26,6 +26,34 @@ function ServiceList(){
     useEffect(() =>{
         getAppointments();
     }, []);
+    const handleCancel = async(id) =>{
+        const cancelUrl = `http://localhost:8080/api/appointments/${id}/cancel/`;
+        const fetchConfig = {
+            method :"put",
+            headers : {
+                'Content-Type': 'application/json'
+            },
+        };
+        const response = await fetch(cancelUrl, fetchConfig);
+        if (response.ok) {
+            window.location.reload();
+        }
+    }
+
+
+    const handleFinish = async(id, event) =>{
+        const finishUrl = `http://localhost:8080/api/appointments/${id}/finish/`;
+        const fetchConfig = {
+            method :"put",
+            headers : {
+                'Content-Type': 'application/json'
+            },
+        };
+        const response = await fetch(finishUrl, fetchConfig);
+        if (response.ok) {
+            window.location.reload();
+        };
+    }
     return(
         <>
         <div className = "row">
@@ -54,6 +82,8 @@ function ServiceList(){
                         <td>{appointment.time}</td>
                         <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                         <td>{appointment.reason}</td>
+                        <td><button type="button" onClick={(e) => handleCancel(appointment.id)}>Cancel</button>
+                        <button  type="button" onClick={(e) => handleFinish(appointment.id)}>Finish</button></td>
                     </tr>
             )
                 })}

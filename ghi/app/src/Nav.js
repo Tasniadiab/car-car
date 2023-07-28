@@ -61,18 +61,11 @@ function Nav() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to="/manufacturers/">Manufacturers</NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink className="nav-link" to="/manufacturers/create">
                 Create a Manufacturer
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/models/create">
-                Create a Model
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/automobiles/create">
-                Create an Automobile
               </NavLink>
             </li>
             <li className="nav-item">
@@ -81,10 +74,17 @@ function Nav() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/manufacturers/">Manufacturers</NavLink>
+              <NavLink className="nav-link" to="/models/create">
+                Create a Model
+              </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/automobiles/">Automobiles</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/automobiles/create">
+                Create an Automobile
+              </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/technicians/">Technicians</NavLink>
@@ -93,13 +93,13 @@ function Nav() {
               <NavLink className="nav-link" to="/technician/new/">Add a Technician</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/service/">Service Appointments</NavLink>
+              <NavLink className="nav-link" to="/appoinments/">Service Appointments</NavLink>
               </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/service/new/">Make an Appointments</NavLink>
+              <NavLink className="nav-link" to="/appoinments/new/">Make an Appointments</NavLink>
               </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/service/history/">Service History</NavLink>
+              <NavLink className="nav-link" to="/appoinments/history/">Service History</NavLink>
             </li>
           </ul>
         </div>

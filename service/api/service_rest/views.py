@@ -23,6 +23,7 @@ class TechnicianListEncoder(ModelEncoder):
         "last_name",
         "name",
         "employee_id",
+        "id",
     ]
 
 
@@ -38,12 +39,9 @@ class AppointmentEncoder(ModelEncoder):
         "vip",
         "status",
         "technician",
+        "id",
 
     ]
-
-    # def get_extra_data(self, o):
-    #     return {"status": o.status.name}
-
     encoders = {
         "technician": TechnicianListEncoder(),
     }
@@ -95,14 +93,13 @@ def api_list_appointments(request):
     elif request.method == "POST":
         content = json.loads(request.body)
         try:
-            technician = Technician.objects.get(first_name=content["technician"])
+            technician = Technician.objects.get(id=content["technician"])
             content["technician"] = technician
         except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Technician id"},
                 status=400,
             )
-
 
         vin = content["vin"]
         if AutomobileVO.objects.filter(vin=vin):
@@ -132,8 +129,14 @@ def api_show_appointment(request, id):
             safe=False,
         )
     elif request.method == "DELETE":
-        count, _ = Appointment.objects.filter(id = id).delete()
-        return JsonResponse({"deleted": count > 0})
+        try:
+            count, _ = Appointment.objects.filter(id = id).delete()
+            return JsonResponse({"deleted": count > 0})
+        except Appointment.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid Appointment"},
+                status = 400,
+            )
     else:
         content = json.loads(request.body)
         Appointment.objects.filter(id=id).update(**content)

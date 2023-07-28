@@ -21,11 +21,11 @@ const ServiceAppointmentForm = () => {
             const dateTime = dateTime1.substring(0, dateTime1.length-1)
 
             const data = {
-            "vin" : vin,
-            "customer" : customer,
-            "date_time" : dateTime,
-            "reason" : reason,
-            "technician" :technician,
+                "vin": vin,
+                "customer": customer,
+                "date_time": dateTime,
+                "reason": reason,
+                "technician": technician,
             }
 
             const appointmentUrl = 'http://localhost:8080/api/appointments/';
@@ -72,6 +72,7 @@ const ServiceAppointmentForm = () => {
 
     const handleTechnicianChange = (event) => {
         const value = event.target.value;
+        console.log(value)
         setTechnician(value);
     };
 
@@ -127,15 +128,16 @@ const ServiceAppointmentForm = () => {
                             onChange={handleTimeChange}
                             ref={timeInputRef}
                         />
-                        <p>Selected Date: {time}</p>
+                        <p>Selected Time: {time}</p>
                         </div>
                         <div className="mb-3">
                             <select onChange={handleTechnicianChange} name="technician" id="technician" className="form-select" value={technician}>
                                 <option value="">Choose a technician</option>
                                 {technicians.map(technician => {
+                                    {console.log(technician)}
                                     return (
-                                        <option key={technician.id} value = {technician.id}>
-                                            {technician.first_name}
+                                        <option key={technician.id} value={technician.id}>
+                                            {technician.first_name} {technician.last_name}
                                         </option>
                                     )
                                 })}

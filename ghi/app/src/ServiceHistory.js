@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 function ServiceHistory() {
     const [search, setSearch] = useState('')
-    const [vin, setVin] = useState('')
-    const [result, setResult] = useState('')
     const [appointments, setAppointments] = useState([])
 
     const getAppointmentsHistory = async () => {
@@ -14,11 +12,8 @@ function ServiceHistory() {
             setAppointments(listHistory.appointments);
             console.log(listHistory)
         }
-
-
-
-
     };
+
     function isVip(props){
         if (props === true){
             return "Yes"
@@ -26,37 +21,28 @@ function ServiceHistory() {
             return "No"
         }
     }
-
-    const handleSearch = async () => {
-        const results = appointments.filter((appointment) =>
-          appointment.vin.includes(search)
-        );
-        setResult(results);
-      };
-
-
     useEffect(() => {
         getAppointmentsHistory();
     }, []);
+
+    const filterVin= ({ vin }) => {
+        return vin.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+      };
+
+    function SearchBar(props) {
+        return (
+          <input
+            type="search"
+            onChange={(e) => props.onSearch(e.target.value)}
+            value={props.value}
+          />
+        );
+      }
     return (
         <>
         <div className = "row">
         <h1> Service History</h1>
-        <div className="col-md-auto">
-                    <div className="input-group mb-2">
-                        <input
-                            type="text"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                        <button
-                            onClick={handleSearch}
-                            type="button"
-                            className="btn btn-outline-secondary">
-                            Search VIN
-                        </button>
-                    </div>
-                </div>
+        <SearchBar placeholder= "search" onSearch={setSearch} value={search} />
         <span className="square border-top"></span>
         <table className="table table-striped">
             <thead>
@@ -72,7 +58,8 @@ function ServiceHistory() {
                 </tr>
             </thead>
             <tbody>
-                {appointments.map(appointment => {
+                {appointments.filter(filterVin).map(appointment => {
+
                     return(
                         <tr key = {appointment.href}>
                             <td>{appointment.vin}</td>
