@@ -5,9 +5,11 @@ import time
 import json
 import requests
 
+
 sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sales_project.settings")
 django.setup()
+
 
 from sales_rest.models import AutomobileVO
 
@@ -15,7 +17,6 @@ from sales_rest.models import AutomobileVO
 def poll(repeat=True):
     while True:
         print('Sales poller polling for data')
-        print("WHERE IS MY POLL!?")
         try:
             response = requests.get("http://project-beta-inventory-api-1:8000/api/automobiles/")
             content = json.loads(response.content)
@@ -34,7 +35,7 @@ def poll(repeat=True):
         if (not repeat):
             break
 
-        time.sleep(15)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
