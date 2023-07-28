@@ -9,8 +9,15 @@ Team:
 
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+I started this project by making my models, I made a AutomobileVO, Technician, and Appoinment model. I also had a status model, but then decided to change it to a status property that was a boolean that I could manipulate in the backend and frontend.
+
+I then moved on to the poller, where I set it up to poll for data from the inventory api. This is so I can get vins from the AutomobileVO.
+
+I went on to create all the backend view functions and creating the cooresponsing url paths. I checked all the http responses in insomnia and made sure I was getting the right json data sent.
+
+When I went on to the front-end to went I went on the create the Lists in react. There, I created a function called isVIP to manipulate the boolean from the status field and render a yes or no for the is vip question. I also implemented filters inorder to show the items from my lists that I wanted to see. I then went on the to the forms. There I created calendar and time fields in my form and formatted the given information into iso format to send back to my backend.
+
+Finally I moved to the Inventory frontend and created the Lists for Automobile, and Manufacturers.
 
 ## Sales microservice
 
