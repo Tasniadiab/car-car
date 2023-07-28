@@ -16,6 +16,8 @@ function ServiceHistory() {
         }
 
 
+
+
     };
     function isVip(props){
         if (props === true){
@@ -25,6 +27,13 @@ function ServiceHistory() {
         }
     }
 
+    const handleSearch = async () => {
+        const results = appointments.filter((appointment) =>
+          appointment.vin.includes(search)
+        );
+        setResult(results);
+      };
+
 
     useEffect(() => {
         getAppointmentsHistory();
@@ -33,6 +42,21 @@ function ServiceHistory() {
         <>
         <div className = "row">
         <h1> Service History</h1>
+        <div className="col-md-auto">
+                    <div className="input-group mb-2">
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <button
+                            onClick={handleSearch}
+                            type="button"
+                            className="btn btn-outline-secondary">
+                            Search VIN
+                        </button>
+                    </div>
+                </div>
         <span className="square border-top"></span>
         <table className="table table-striped">
             <thead>

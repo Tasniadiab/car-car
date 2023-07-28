@@ -50,4 +50,4 @@ function TechnicianList () {
 
 
 
-export default TechnicianList
+export default TechnicianList;

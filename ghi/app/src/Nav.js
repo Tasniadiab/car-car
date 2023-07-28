@@ -14,13 +14,22 @@ function Nav() {
               <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/technicians">Technicians</NavLink>
+              <NavLink className="nav-link" to="/manufacturers/">Manufacturers</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/automobiles/">Automobiles</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/technicians/">Technicians</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/technician/new/">Add a Technician</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/service">Service Appointments</NavLink>
+              <NavLink className="nav-link" to="/service/">Service Appointments</NavLink>
+              </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/service/new/">Make an Appointments</NavLink>
               </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/service/history/">Service History</NavLink>

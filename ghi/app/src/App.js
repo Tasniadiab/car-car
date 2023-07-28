@@ -6,7 +6,8 @@ import ServiceHistory from './ServiceHistory';
 import ServiceList from './ServiceList';
 import ServiceAppointmentForm from './ServiceAppointmentForm';
 import TechnicianForm from './TechnicianForm';
-
+import ManufacturerList from './ManufacturerList';
+import AutomobileList from './AutomobilesList';
 
 function App(props) {
   return (
@@ -15,11 +16,13 @@ function App(props) {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="manufacturers/" element={<ManufacturerList manufacturers={props.manufacturers} />} />
+          <Route path="automobiles/" element={<AutomobileList automobiles={props.autombiles} />} />
           <Route path="technicians/" element={<TechnicianList technicians={props.technicians} />} />
           <Route path="/technician/new" element={<TechnicianForm />} />
-          <Route path="service/" element={<ServiceList list= {props.list}/>} />
-          <Route path="/service/new" element={<ServiceAppointmentForm />} />
-          <Route path="service/history/" element={<ServiceHistory history= {props.history}/>} />
+          <Route path="appoinments/" element={<ServiceList list= {props.list}/>} />
+          <Route path="/appoinments/new" element={<ServiceAppointmentForm />} />
+          <Route path="appoinments/history/" element={<ServiceHistory history= {props.history}/>} />
         </Routes>
       </div>
     </BrowserRouter>
