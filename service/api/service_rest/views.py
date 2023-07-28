@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods
 from common.json import ModelEncoder
 import json
 from django.http import JsonResponse
+from datetime import datetime
 
 # Create your views here.
 
@@ -20,6 +21,7 @@ class TechnicianListEncoder(ModelEncoder):
     properties = [
         "first_name",
         "last_name",
+        "name",
         "employee_id",
     ]
 
@@ -31,6 +33,7 @@ class AppointmentEncoder(ModelEncoder):
         "customer",
         "date",
         "time",
+        "date_time",
         "reason",
         "vip",
         "status",
@@ -92,13 +95,15 @@ def api_list_appointments(request):
     elif request.method == "POST":
         content = json.loads(request.body)
         try:
-            technician = Technician.objects.get(id=content["technician"])
+            technician = Technician.objects.get(first_name=content["technician"])
             content["technician"] = technician
         except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Technician id"},
                 status=400,
             )
+
+
         vin = content["vin"]
         if AutomobileVO.objects.filter(vin=vin):
             content["vip"] = True

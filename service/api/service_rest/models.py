@@ -20,6 +20,10 @@ class Technician(models.Model):
     def __str__(self):
         return self.first_name
 
+    @property
+    def name(self):
+        return  f"{self.first_name} {self.last_name}"
+
     class Meta:
         ordering = ("first_name",)
 
@@ -82,7 +86,7 @@ class Appointment(models.Model):
 
     @property
     def date(self):
-        return  date(self.date_time, 'm/d/Y')
+        return  date(self.date_time, 'm-d-Y')
 
     @property
     def time(self):

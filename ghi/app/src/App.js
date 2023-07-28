@@ -4,6 +4,7 @@ import Nav from './Nav';
 import TechnicianList from './TechnicianList';
 import ServiceHistory from './ServiceHistory';
 import ServiceList from './ServiceList';
+import ServiceAppointmentForm from './ServiceAppointmentForm';
 import TechnicianForm from './TechnicianForm';
 
 
@@ -17,6 +18,7 @@ function App(props) {
           <Route path="technicians/" element={<TechnicianList technicians={props.technicians} />} />
           <Route path="/technician/new" element={<TechnicianForm />} />
           <Route path="service/" element={<ServiceList list= {props.list}/>} />
+          <Route path="/service/new" element={<ServiceAppointmentForm />} />
           <Route path="service/history/" element={<ServiceHistory history= {props.history}/>} />
         </Routes>
       </div>
