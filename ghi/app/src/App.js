@@ -21,7 +21,6 @@ import ManufacturerList from './ManufacturerList';
 import AutomobileList from './AutomobilesList';
 
 function App(props) {
-function App(props) {
   return (
     <BrowserRouter>
       <Nav />
